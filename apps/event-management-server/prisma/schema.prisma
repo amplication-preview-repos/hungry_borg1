@@ -1,0 +1,32 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Match {
+  amount    Float?
+  createdAt DateTime  @default(now())
+  date      DateTime?
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  location  String?
+  matchName String?
+  players   String?
+  time      DateTime?
+  updatedAt DateTime  @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
